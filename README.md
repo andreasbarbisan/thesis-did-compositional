@@ -145,8 +145,3 @@ The aggregate approximation inspired by Sant'Anna & Xu (2026) does **not** fully
 
 The adaptation operates at the school × year × grade level: for each cohort and relative time, a four-category multinomial logit is estimated using baseline composition covariates, Hájek weights are constructed from the resulting propensity scores, and three outcome regressions adjust each counterfactual cell. Cells with insufficient common support are excluded rather than replaced by a simpler estimator.
 
----
-
-## Citation
-
-> Barbisan, A. A. (2026). *Difference-in-Differences in Educational Policies: Evidence on Full-Day Education under Compositional Changes*. Undergraduate Thesis, Insper Institute of Education and Research.
