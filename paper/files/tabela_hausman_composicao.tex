@@ -1,0 +1,25 @@
+﻿\begin{table}[htbp]
+\centering
+\caption{Hausman-type diagnostic: DR-DiD versus S\&X approximation}
+\label{tab:hausman_composicao}
+\small
+\begin{threeparttable}
+\begin{tabular}{lccccc}
+\toprule
+Grade-subject & DR-DiD & S\&X approx. & Diff. & \(p\)-value & MDE 80\% \\
+\midrule
+9th grade -- LP & 0.510 & 0.502 & -0.008 & 0.9630 & 0.198 \\
+9th grade -- Mathematics & 0.601 & 0.603 & +0.002 & 0.9976 & 0.219 \\
+HS3 -- LP & 0.571 & 0.601 & +0.031 & 0.9000 & 0.248 \\
+HS3 -- Mathematics & 0.627 & 0.675 & +0.048 & 0.9057 & 0.243 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item \textit{Note:} DR-DiD and S\&X values correspond to the average post-treatment effect, computed as the mean from \(k=0\) to \(k=4\). The test uses a conservative variance equal to the sum of marginal variances. The 80\% MDE is the minimum detectable difference, in standard deviations, with 80\% power and a two-sided 5\% test. The S\&X approximation excludes cells without sufficient common support and does not use a binary DR-DiD fallback.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+

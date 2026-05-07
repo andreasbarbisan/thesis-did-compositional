@@ -1,0 +1,111 @@
+\documentclass[12pt]{article}
+
+\usepackage{amssymb,amsmath,amsfonts,geometry,graphicx,caption,color,array,xcolor,microtype,imakeidx,csquotes,lipsum,booktabs,threeparttable,longtable,makecell,pifont}
+\microtypesetup{expansion=false}
+\captionsetup{font=small,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=false}
+\captionsetup[figure]{position=bottom}
+
+
+\usepackage[colorlinks=true, allcolors=blue, breaklinks=true]{hyperref}
+
+% Configuração do biblatex (adicione natbib=true se quiser usar \parencitep e \parencitet)
+\usepackage[backend=biber,style=authoryear,sorting=nyt,natbib=true]{biblatex} 
+\addbibresource{referencias.bib}
+
+\DeclareFieldFormat{citehyperref}{%
+  \DeclareFieldAlias{bibhyperref}{noformat}%
+  \bibhyperref{#1}}
+
+\savebibmacro{cite}
+
+\renewbibmacro*{cite}{%
+  \printtext[citehyperref]{%
+    \restorebibmacro{cite}%
+    \usebibmacro{cite}}}
+
+
+
+
+% Configurações de espaçamento e outros pacotes
+\newcommand{\onehalfspacing}{\linespread{1.25}\selectfont}
+\newcommand{\doublespacing}{\linespread{1.5}\selectfont}
+\newcommand{\singlespacing}{\linespread{1}\selectfont}
+\newcommand{\epigraphfontsize}[1]{}
+\newlength{\epigraphwidth}
+\newlength{\epigraphrule}
+\newcommand{\epigraph}[2]{\begin{quote}\small\itshape #1\par\raggedleft\normalfont #2\end{quote}}
+\onehalfspacing
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}{Proposition}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\newtheorem{hyp}{Hypothesis}
+\newtheorem{subhyp}{Hypothesis}[hyp]
+\renewcommand{\thesubhyp}{\thehyp\alph{subhyp}}
+
+\newcommand{\red}[1]{{\color{red} #1}}
+\newcommand{\blue}[1]{{\color{blue} #1}}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
+\geometry{left=1.0in,right=1.0in,top=1.0in,bottom=1.0in}
+
+\begin{document}
+
+
+\begin{titlepage}
+\title{Full-Time Schooling and Student Outcomes: Identification under Compositional Changes}
+\author{Andreas Azambuja Barbisan\thanks{\textbf{Andreas Azambuja Barbisan}: Insper Institute of Education and Research, Rua Quatá, 300, São Paulo, SP, Brazil 04546-042. E-mail: \href{mailto:andreasab1@insper.edu.br}{andreasab1@insper.edu.br}\\
+I thank Adriano Dutra Teixeira, Luiz Felipe Fontes, Pedro Picchetti, Bruno Frasão Brazil Leiros, Diogo Roecker Cardozo, and Lorena Liz Giusti e Santos. I gratefully acknowledge the financial support from the Insper Scholarship Program. All errors are my own.}}
+\date{May 2026 \\ \small Adapted from undergraduate thesis (Insper, 2026)}
+\maketitle
+\begin{abstract}
+\noindent This study estimates proficiency gains associated with school adoption of the Full-Day Education Program (PEI), a policy that expanded school hours and reorganized management in São Paulo state schools. The research exploits the staggered rollout of the program using a difference-in-differences framework, comparing Two-Way Fixed Effects (TWFE), \textcite{callawaysantanna}, \textcite{santannazhao}, and an aggregate approximation inspired by \textcite{santannaxu}. The main estimates indicate average post-treatment gains between approximately 0.50 and 0.68 standard deviations in standardized Portuguese Language and Mathematics exams. The inclusion of composition covariates constructed from enrollment microdata and municipal controls does not substantially alter the estimates, indicating that aggregate observable composition is not sufficient, in the estimated specifications, to eliminate the gains. The interpretation, however, is limited: the absence of an individual link between enrollment and test scores prevents a full decomposition of learning, selection, and test participation, so the results should be read as aggregate evidence conditional on the identifying assumptions adopted.\\
+\vspace{0in}\\
+\noindent\textbf{Keywords:} Economics of Education, Difference-in-differences, Full-day schooling\\
+\vspace{0in}\\
+\noindent\textbf{JEL Codes:} I21, I28, J24\\
+
+
+\bigskip
+\end{abstract}
+\setcounter{page}{0}
+\thispagestyle{empty}
+\end{titlepage}
+\pagebreak \newpage
+
+
+
+\doublespacing
+
+% Inclusão dos capítulos
+\include{chapters/01-introducao}
+\include{chapters/02-literature}
+\include{chapters/03-micromodel}
+\include{chapters/04-methodsanddata}
+\include{chapters/05-resultsanddiscussion}
+\include{chapters/06-conclusion}
+
+\singlespacing
+
+% Impressão da bibliografia
+\printbibliography[title=References]  % Imprime as referências ordenadas alfabeticamente
+
+\clearpage
+\appendix
+\onehalfspacing
+\include{appendix/appendix-a}
+\include{appendix/appendix-b}
+\include{appendix/appendix-c}
+\include{appendix/appendix-d}
+\include{appendix/appendix-e}
+\include{appendix/appendix-f}
+%\include{appendix/appendix-g}
+
+\end{document}

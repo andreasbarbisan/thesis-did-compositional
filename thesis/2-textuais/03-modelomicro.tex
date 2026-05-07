@@ -1,0 +1,108 @@
+\chapter{Modelo Microeconômico} \label{sec:micromodel}
+\epigraphfontsize{\small\itshape}
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+\epigraphfontsize{\small\itshape}
+\epigraph{``Theoretical models should be tested primarily by the accuracy of their predictions rather than by the reality of their assumptions.''}{--- \textup{\textcite{downs1957economic}}}
+
+%-----------------------------------------------------------------------
+\section{Modelo Microeconômico escolhido}
+%-----------------------------------------------------------------------
+
+
+\noindent Este trabalho parte de um modelo microeconômico de função de produção educacional, no qual o desempenho acadêmico de um aluno é resultado da combinação de diferentes insumos ao longo do processo de aprendizado. A abordagem segue a literatura clássica de economia da educação, na qual a aprendizagem é tratada como o produto de fatores individuais, familiares, escolares e sociais \cite{funcaodeproducaoeducacional}.
+
+Formalmente, o resultado acadêmico do aluno $i$ no período $t$, denotado por $A_{it}$, pode ser descrito pela seguinte função de produção educacional:
+
+\begin{equation}
+A_{it} = f \left( B_{i}^{(t)}, P_{i}^{(t)}, S_{i}^{(t)}, I_i \right).
+\end{equation}
+
+Nesta expressão, $B_{i}^{(t)}$ representa o \textit{background} familiar do aluno, que inclui características socioeconômicas do domicílio, capital cultural e condições de apoio educacional. Já $P_{i}^{(t)}$ corresponde ao conjunto de pares com os quais o aluno interage no ambiente escolar, refletindo possíveis externalidades educacionais provenientes da composição da turma ou da escola.
+
+O termo $S_{i}^{(t)}$ representa os insumos escolares disponíveis ao aluno. Neste trabalho, esses insumos serão adaptados e modelados explicitamente como função de três dimensões principais do ambiente educacional:
+
+\begin{equation} 
+S_{i}^{(t)} = S(\tau,\pi,\sigma)_{i}^{(t)}, 
+\end{equation}
+
+em que $\tau$ representa o tempo de permanência do aluno na escola, $\pi$ corresponde ao desenvolvimento pessoal e socioemocional proporcionado pelo ambiente escolar, e $\sigma$ representa a infraestrutura e os recursos pedagógicos disponíveis. Assim, os insumos escolares são entendidos como uma combinação desses três fatores, que afetam conjuntamente o processo de aprendizagem.
+
+Por fim, $I_i$ representa as habilidades inatas do aluno, ou seja, características individuais relativamente persistentes que influenciam sua capacidade de aprendizado.
+
+Assume-se que todos esses fatores impactam positivamente o resultado acadêmico do aluno, de modo que as derivadas parciais da função de produção sejam positivas. Formalmente,
+
+\begin{equation*}
+\frac{\partial A_{it}}{\partial B_{i}^{(t)}} > 0, \quad
+\frac{\partial A_{it}}{\partial P_{i}^{(t)}} > 0, \quad
+\frac{\partial A_{it}}{\partial S(\tau,\pi,\sigma)_{i}^{(t)}} > 0, \quad
+\frac{\partial A_{it}}{\partial I_{i}} > 0.
+\end{equation*}
+
+O \textit{background} familiar $B_{i}^{(t)}$ impacta positivamente o desempenho, pois um melhor contexto familiar está associado a melhores condições de apoio educacional, o que eleva o resultado acadêmico do aluno. Os colegas $P_{i}^{(t)}$ também exercem efeito positivo, uma vez que a aprendizagem apresenta externalidades positivas: melhores pares tendem a gerar um ambiente mais propício ao aprendizado, elevando o desempenho individual.
+
+Os insumos escolares $S(\tau,\pi,\sigma)_{i}^{(t)}$ afetam positivamente o resultado, sendo compostos por três dimensões. Em primeiro lugar, o tempo de permanência na escola $\tau$ possui efeito positivo, isto é,
+
+\begin{equation*}
+\frac{\partial A_{it}}{\partial \tau} > 0,
+\end{equation*}
+
+pois quanto maior o tempo dedicado à escolarização, maior tende a ser o acúmulo de conhecimento. Em segundo lugar, o desenvolvimento pessoal $\pi$ também apresenta efeito positivo,
+
+\begin{equation*}
+\frac{\partial A_{it}}{\partial \pi} > 0,
+\end{equation*}
+
+uma vez que maior estabilidade emocional e social favorece o processo de aprendizagem. Por fim, a infraestrutura escolar $\sigma$ contribui positivamente para o desempenho,
+
+\begin{equation*}
+\frac{\partial A_{it}}{\partial \sigma} > 0,
+\end{equation*}
+
+pois melhores recursos físicos e pedagógicos ampliam os canais de aprendizado disponíveis ao aluno.
+
+Adicionalmente, as habilidades inatas $I_{i}$ influenciam positivamente o desempenho acadêmico,
+
+\begin{equation*}
+\frac{\partial A_{it}}{\partial I_{i}} > 0,
+\end{equation*}
+
+uma vez que maiores níveis de aptidão individual tendem a elevar a capacidade de aprendizado de um determinado aluno.
+
+%-----------------------------------------------------------------------
+\section{Canais de atuação do PEI}
+%-----------------------------------------------------------------------
+
+No contexto do modelo integral, os principais canais potenciais sobre o desempenho acadêmico são os pares e os fatores escolares. No que se refere aos pares $P_{i}^{(t)}$, uma hipótese plausível é que escolas de tempo integral possam atrair alunos mais engajados e com melhor desempenho prévio, ao mesmo tempo em que dificultem a permanência de estudantes mais vulneráveis ou que precisam conciliar estudo e trabalho. Sob essas hipóteses, essa dinâmica tenderia a elevar o desempenho médio observado, isto é,
+
+\begin{equation*}
+\frac{\partial A_{it}}{\partial P_{i}^{(t)}} > 0.
+\end{equation*}
+
+Entretanto, do ponto de vista empírico e da avaliação de políticas públicas, essa mesma dinâmica representa exatamente o viés de mudança composicional discutido na literatura recente \cite{favaro_composicao_pei}. Esse fenômeno exige ferramentas econométricas que reduzam o risco de confundir efeito contábil gerado pela troca de alunos com ganho de aprendizagem, o que fundamenta as escolhas metodológicas detalhadas no próximo capítulo.
+
+Além disso, os fatores escolares $S_{i}^{(t)}$, que podem ser decompostos em tempo de permanência $\tau$, desenvolvimento pessoal $\pi$ e infraestrutura $\sigma$, também constituem canais relevantes de impacto direto do programa. Em relação ao tempo de permanência na escola, espera-se que
+
+\begin{equation*}
+\frac{\partial A_{it}}{\partial \tau} > 0,
+\end{equation*}
+
+uma vez que maior tempo de exposição ao ambiente escolar tende a aumentar o acúmulo de aprendizado, ainda que, isoladamente, esse canal possa eventualmente apresentar efeito limitado caso não seja acompanhado de mudanças pedagógicas, como visto na experiência de \textcite{AlmeidaEtAl2016MaisEducacao}.
+
+No que diz respeito ao desenvolvimento pessoal $\pi$, espera-se um efeito positivo sobre o desempenho,
+
+\begin{equation*}
+\frac{\partial A_{it}}{\partial \pi} > 0,
+\end{equation*}
+
+pois, no modelo teórico, maior estabilidade emocional, social e comportamental tenderia a favorecer a continuidade e a qualidade do processo de aprendizagem. Essa hipótese é consistente com evidências de programas de ensino integral em outros contextos, mas não é testada diretamente para o PEI paulista neste trabalho; evidência relacionada aparece em \textcite{araujo2020_pernambuco_impacto_enem}. 
+
+Por fim, a melhoria na infraestrutura escolar $\sigma$ amplia as possibilidades pedagógicas e os métodos de ensino disponíveis, gerando novas formas de aprendizado. Assim, espera-se que
+
+\begin{equation*}
+\frac{\partial A_{it}}{\partial \sigma} > 0.
+\end{equation*}
+
+Em síntese, o modelo integral pode atuar por dois canais distintos sobre o desempenho acadêmico. O canal pedagógico pretendido opera via fortalecimento dos insumos escolares (tempo de permanência $\tau$, desenvolvimento pessoal $\pi$ e infraestrutura $\sigma$), representando o ganho de aprendizagem que a política busca gerar. O canal composicional opera via alteração da composição dos pares $P_i^{(t)}$: se a jornada estendida e o modelo pedagógico mais exigente mudam quem permanece matriculado ou quem realiza a prova, o desempenho médio observado pode crescer mesmo sem que todo o aumento corresponda a aprendizado individual.
+
+Do ponto de vista da avaliação de impacto, essa distinção é fundamental. O parâmetro de interesse deste trabalho -- o Efeito Médio do Tratamento sobre os Tratados (ATT) -- aproxima o canal direto que a política pretende produzir, isto é, o ganho de aprendizagem associado à mudança de jornada e organização escolar. O canal dos pares, contudo, representa um problema de composição: o aumento observado na proficiência média das escolas PEI pode refletir parcialmente a troca do perfil discente, não apenas a melhoria pedagógica. Formalmente, quando a composição de $P_i^{(t)}$ muda sistematicamente entre os períodos pré e pós-tratamento, a suposição de estacionariedade é violada, e estimadores que não corrigem essa mudança podem confundir efeito composicional com efeito atribuído à política.

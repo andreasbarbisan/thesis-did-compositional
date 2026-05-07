@@ -1,0 +1,21 @@
+\begin{table}[htbp]
+\centering
+\caption{Diagnóstico de regressão à média}
+\label{tab:diagnostico_regressao_media}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+Série-disciplina & DR-DiD principal & Suporte baseline & $\Delta$ controles baixos & $\Delta$ controles altos \\
+\midrule
+9EF LP & 0,510 & 0,533 & 0,239 & -0,182 \\
+9EF Mat & 0,601 & 0,612 & -0,172 & -0,482 \\
+EM3 LP & 0,571 & 0,581 & -0,094 & -0,578 \\
+EM3 Mat & 0,627 & 0,607 & -0,295 & -0,542 \\
+\bottomrule
+\end{tabular}
+}
+\vspace{0.2cm}
+\begin{flushleft}
+\footnotesize Nota: a coluna de suporte baseline reestima o DR-DiD restringindo a amostra ao intervalo p10--p90 da proficiência de linha de base das escolas tratadas. As duas últimas colunas mostram a variação média, em desvios-padrão, entre 2011 e 2018 para controles nunca tratados abaixo/acima da mediana de baseline das tratadas.
+\end{flushleft}
+\end{table}

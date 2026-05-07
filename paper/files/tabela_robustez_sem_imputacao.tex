@@ -1,0 +1,24 @@
+﻿\begin{table}[htbp]
+\centering
+\caption{Sensitivity to covariate imputation}
+\label{tab:robustez_sem_imputacao}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccc}
+\toprule
+Grade-subject & DR-DiD (main) & DR-DiD no imputation & Main N & No-imputation N & N fraction \\
+\midrule
+9th LP & 0.510 & 0.384 & 24754 & 10804 & 0.436 \\
+9th Mat & 0.601 & 0.502 & 24769 & 10819 & 0.437 \\
+HS3 LP & 0.571 & -- & 27515 & -- & -- \\
+HS3 Mat & 0.627 & -- & 27530 & -- & -- \\
+\bottomrule
+\end{tabular}
+}
+\vspace{0.2cm}
+\begin{flushleft}
+\footnotesize Note: the no-imputation version uses only observations with complete raw covariates. The exercise should be read as a diagnostic of sensitivity and sample coverage, not as a direct substitute for the main specification.
+\end{flushleft}
+\end{table}
+
+
+

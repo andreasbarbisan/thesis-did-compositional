@@ -1,0 +1,67 @@
+\chapter{Revisão de Literatura} \label{sec:literature}
+
+O presente capítulo está dividido em três seções. A Seção \ref{sec:ensinointegral} faz uma revisão da literatura existente sobre avaliações de programas de ensino integral, sobretudo no contexto brasileiro e sul-americano. A Seção \ref{sec:peisaopaulo} descreve o Programa Ensino Integral (PEI) do Estado de São Paulo, detalhando sua implementação escalonada e discutindo os achados recentes sobre os vieses de composição de alunos. Por fim, a Seção \ref{sec:diffindiff} levanta a discussão sobre a evolução dos estimadores de Diferenças-em-Diferenças e justifica a escolha metodológica deste trabalho.
+
+%-----------------------------------------------------------------------
+\section{Ensino Integral} \label{sec:ensinointegral}
+%-----------------------------------------------------------------------
+
+A ampliação do tempo de instrução é frequentemente apontada como uma alavanca central para a melhoria da qualidade educacional. Um dos primeiros artigos a tratar sobre esse assunto no contexto sul-americano é \textcite{bellei2009}, que avaliou um programa de escola integral no Chile. Utilizando a metodologia de Diferenças-em-Diferenças, o autor encontrou efeitos positivos e heterogêneos, com maior impacto estimado em áreas rurais, alunos de escolas públicas e alunos que já estavam no topo da distribuição de desempenho.
+
+Ao entrar no contexto brasileiro, no entanto, a literatura demonstra que os resultados variam drasticamente dependendo do desenho e da profundidade da política educacional adotada. \textcite{AlmeidaEtAl2016MaisEducacao} avaliaram o programa federal \textit{``Mais Educação''}, cujo foco era gerar atividades complementares no contraturno escolar, aumentando a carga horária diária para no mínimo 7 horas. Apesar do financiamento extra, os autores encontraram efeito nulo nas notas dos testes padronizados de Língua Portuguesa e na taxa de evasão escolar, e até um efeito negativo em Matemática. Esse resultado sugere que a simples extensão da carga horária, sem uma reestruturação pedagógica profunda, é insuficiente para alavancar o aprendizado.
+
+Por outro lado, programas estaduais mais estruturados têm apresentado resultados mais favoráveis. Em Pernambuco, \textcite{Pernambuco} encontraram ganhos expressivos em Matemática e Linguagens (cerca de 0,22 e 0,19 desvios-padrão) associados ao programa estadual de ensino integral. Complementarmente, \textcite{araujo2020_pernambuco_impacto_enem} estimaram efeitos positivos desse mesmo programa sobre as notas do Exame Nacional do Ensino Médio (ENEM), destacando um ``efeito multiplicador'' das horas gastas em atividades complementares.
+
+No Estado de São Paulo, a experiência precursora do \textit{``Programa Escola de Tempo Integral''} (ETI), implementada entre 2007 e 2008, ilustra as dificuldades de políticas de ampliação de jornada. \textcite{aquino2011_eti_2007_2008_psm_painel} analisou o ETI usando dados em painel e pareamento (\textit{Propensity Score Matching}), encontrando resultados essencialmente nulos em Matemática e aprovação. A autora aponta que a falta de planejamento de atividades focadas em proficiência e problemas de coordenação motivaram o fracasso da iniciativa. Fica evidente, portanto, a necessidade de um programa que aliasse o tempo em sala de aula com uma nova arquitetura de gestão e ensino, lacuna que viria a ser preenchida pelo PEI.
+
+%-----------------------------------------------------------------------
+\section{O Programa Ensino Integral (PEI) em São Paulo} \label{sec:peisaopaulo}
+%-----------------------------------------------------------------------
+
+Instituído em 2012, o Programa Ensino Integral (PEI) surgiu como a principal aposta da rede estadual paulista para superar os gargalos dos modelos anteriores. A formulação do PEI diferencia-se ao propor uma escola integral que combina a permanência estendida (7 ou 9 horas diárias) com um redesenho profundo do projeto pedagógico e do modelo de gestão \cite{sao_paulo_pei_2012}.
+
+Para operacionalizar essa proposta, as escolas convertidas adotaram inovações como o \textit{Projeto de Vida} (onde o aluno estrutura seus objetivos de longo prazo), disciplinas Eletivas, Práticas Experimentais e Tutorias. Do ponto de vista de gestão, o programa inseriu a metodologia PDCA (Planejar, Fazer, Checar e Agir) e instituiu o Regime de Dedicação Plena e Integral (RDPI), que garante uma bonificação salarial de 75\% aos professores e gestores em troca de dedicação exclusiva a uma única unidade escolar, impedindo que o corpo docente se divida entre múltiplas escolas \cite{sao_paulo_pei_2012}. A implementação do PEI ocorreu de forma não aleatória e escalonada no tempo. Conforme ilustrado na Figura \ref{fig:rolloutnovas}, o programa iniciou com um grupo restrito de escolas em 2012, aumentando substancialmente ao longo dos anos. 
+
+\begin{figure}[htbp]
+    \centering
+    \caption{Novas Escolas PEI por ano de adesão}
+    \label{fig:rolloutnovas}
+    \includegraphics[width=0.8\textwidth]{tabelas/imagens/rollout_novas.pdf}
+    \\ \vspace{0.1cm}
+    \footnotesize{\textbf{Fonte:} \href{https://dados.educacao.sp.gov.br/story/saresp}{Dados Abertos da Educação SP}. Elaboração do autor.}
+\end{figure}
+
+A Figura \ref{fig:rolloutacumulado} evidencia a magnitude desse \textit{rollout}, mostrando a consolidação do PEI como uma política de larga escala no sistema educacional paulista. A adesão condicional a critérios de infraestrutura nos primeiros anos reforça o caráter do PEI como uma mudança de arranjo institucional complexo, e não um mero choque exógeno de tempo.
+
+\begin{figure}[htbp]
+    \centering
+    \caption{Quantidade acumulada de escolas PEI no Estado de São Paulo}
+    \label{fig:rolloutacumulado}
+    \includegraphics[width=0.8\textwidth]{tabelas/imagens/rollout_acumulado.pdf}
+    \\ \vspace{0.1cm}
+    \footnotesize{\textbf{Fonte:} \href{https://dados.educacao.sp.gov.br/story/saresp}{Dados Abertos da Educação SP}. Elaboração do autor.}
+\end{figure}
+
+As primeiras avaliações empíricas do PEI documentam ganhos de proficiência associados ao programa. \textcite{pei_saeb} aplicaram Diferenças-em-Diferenças para estimar os efeitos sobre resultados no SAEB, apresentando ganhos de cerca de 0,46 desvios-padrão em Matemática e Português. Em complemento, \textcite{kawahara2019_pei_impacto_enem_provabrasil_fluxo} encontrou efeitos positivos sobre o desempenho no ENEM, na Prova Brasil e em indicadores de fluxo escolar. Mais recentemente, \textcite{scorzafave2023} avaliaram diretamente o PEI nas notas do SARESP do Ensino Médio, encontrando ganhos de 0,31 e 0,21 desvios-padrão em Matemática e Português, respectivamente.
+
+Essas magnitudes são um parâmetro importante para interpretar este trabalho. Estimativas em torno de 0,20 a 0,30 desvio-padrão já são substantivas na literatura de economia da educação, inclusive quando associadas a mudanças relevantes de insumos escolares e financiamento \cite{jackson2016schoolspending}. Portanto, resultados agregados acima de 0,50 desvio-padrão, como os estimados nesta monografia, devem ser lidos com cautela e comparados explicitamente com a literatura. Uma diferença dessa ordem pode refletir desenho amostral, padronização anual, uso de dados agregados por escola, janela temporal, composição do grupo de controle e participação no SARESP, não apenas maior eficácia pedagógica do programa.
+
+Apesar do forte consenso em torno dos resultados positivos diretos, uma literatura recente e crítica levantou preocupações estruturais a respeito de como o programa afeta a rede estadual. \textcite{favaro_composicao_pei} analisou mudanças de composição associadas à adoção do programa e documentou que a conversão para o PEI altera ativamente o perfil do corpo discente: o programa aumentou a fração de meninas e reduziu a porcentagem de alunos não brancos e de alunos com atraso escolar. Além disso, identificou-se uma redução no número total de matrículas nas escolas recém-convertidas. 
+
+Simultaneamente, \textcite{santos2022_spillover_pei_escolas_regulares} documentou a existência de efeitos de transbordamento (\textit{spillovers}) sobre escolas regulares no entorno das escolas PEI, estimando que a migração de alunos altera a composição das escolas vizinhas e está associada à piora de seu desempenho. Esses dois achados empíricos -- mudança composicional nas tratadas e contágio no controle -- formam a base do problema que este trabalho discute, exigindo uma transição para a fronteira da econometria de inferência causal.
+
+%-----------------------------------------------------------------------
+\section{Evolução dos Estimadores de Diferenças-em-Diferenças} \label{sec:diffindiff}
+%-----------------------------------------------------------------------
+
+A avaliação de impacto de políticas públicas ganhou centralidade na pesquisa econômica contemporânea. Como documentado por \textcite{currie2020}, a disciplina passou por uma guinada empírica nas últimas décadas: a microeconomia aplicada tornou-se parcela crescente das principais revistas, e métodos quase-experimentais, em especial Diferenças-em-Diferenças, passaram a organizar boa parte da evidência causal em políticas públicas.
+
+Apesar dessa imensa popularidade, historicamente, a avaliação de políticas públicas com múltiplos períodos (como o \textit{rollout} do PEI) baseou-se quase exclusivamente no estimador de TWFE. No entanto, uma recente literatura econométrica demonstra que esse estimador falha severamente em configurações onde a política é adotada de forma escalonada e onde os efeitos do tratamento são heterogêneos no tempo. 
+
+O trabalho de \textcite{goodmanbacon} provou que o estimador TWFE realiza ``comparações proibidas'', utilizando unidades já tratadas em períodos anteriores como controle para avaliar unidades tratadas mais recentemente. Complementarmente, \textcite{chaisemartin2020} demonstraram que essa contaminação pode gerar pesos estritamente negativos na agregação, podendo resultar em estimativas com o sinal oposto ao verdadeiro efeito da política.
+
+Para contornar as falhas do modelo clássico, a literatura desenvolveu novos estimadores. A abordagem de \textcite{callawaysantanna} consolidou-se como a solução primária para o escalonamento, isolando comparações limpas utilizando apenas unidades ``ainda não tratadas'' ou ``nunca tratadas''. Além disso, \textcite{santannazhao} também avançaram ao propor estimadores Duplamente Robustos que combinam ajuste de regressão e ponderação (IPW) para lidar eficientemente com covariáveis.
+
+Por fim, a estrutura de dados das avaliações educacionais impõe um desafio de identificação adicional. Exames como o SARESP formam uma base de cortes transversais repetidos. A preocupação com DiD sob mudança composicional aparece de forma pioneira em \textcite{hong2013}, que mostra, em outro contexto empírico, que a composição dos grupos observados pode mudar ao longo do tempo e enviesar estimadores convencionais. \textcite{murto2024} revisita esse argumento e mostra que estratégias de reponderação por escore de propensão podem ser adaptadas para lidar de forma mais simples com deslocamentos composicionais em cortes transversais repetidos. Como apontam \textcite{santannaxu}, estimadores de DiD para esse tipo de dado usualmente dependem de uma suposição de estacionariedade: a distribuição dos indivíduos observados nas unidades tratadas e de controle não deve mudar de forma diferencial justamente por causa do tratamento. 
+
+Ocorre que, como \textcite{favaro_composicao_pei} documenta para o PEI, a adesão ao programa altera de forma estatisticamente significativa a composição do corpo discente. Quando essa premissa é violada pela própria política, estimadores que não corrigem a composição podem confundir seleção de alunos com ganho de aprendizagem, além da migração de alunos entre escolas. Este trabalho parte dessa preocupação, mas a adapta ao dado efetivamente disponível publicamente: em vez de aplicar integralmente o estimador individual de \textcite{santannaxu}, uso covariáveis de composição agregadas por escola, ano e série para avaliar a sensibilidade das estimativas a mudanças observáveis no alunado.

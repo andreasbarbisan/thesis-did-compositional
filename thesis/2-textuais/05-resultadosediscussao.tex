@@ -1,0 +1,195 @@
+\chapter{Resultados e Discussão} \label{sec:results}
+
+Este capítulo apresenta os resultados empíricos do trabalho. A seção \ref{sec:descritivo} documenta estatísticas descritivas para o trabalho. A seção \ref{sec:results} apresenta os resultados estimados sobre proficiência, comparando TWFE, \textcite{callawaysantanna}, \textcite{santannazhao} e a aproximação agregada inspirada em \textcite{santannaxu}. A seção \ref{sec:dinamicaefeito} discute a dinâmica dos efeitos e o diagnóstico composicional, e por fim a seção \ref{sec:robustez} traz a robustez das estimativas.
+
+%-----------------------------------------------------------------------
+\section{Estatísticas Descritivas} \label{sec:descritivo}
+%-----------------------------------------------------------------------
+
+A análise descritiva apoia-se em duas bases complementares. A primeira é o painel agregado em nível de escola, usado na estimação principal. A segunda são os microdados de alunos, usados para construir covariáveis de composição e documentar mudanças no perfil do alunado. Para fins de comparação, as observações são classificadas em três grupos: \textit{Controle}, escolas que não aderem ao PEI dentro da janela analisada; \textit{Tratado Pré}, escolas PEI antes da conversão; e \textit{Tratado Pós}, escolas PEI depois da conversão.
+
+A Tabela~\ref{tab:micro} apresenta estatísticas dos microdados. A coluna \textit{Diff (Pós--Pré)} apresenta o coeficiente de uma regressão linear da variável de interesse sobre uma variável indicadora de período pós-tratamento, restrita ao grupo tratado, com erros-padrão clusterizados no nível da escola.
+
+\begin{table}[htbp]
+\centering
+\caption{Estatísticas Descritivas --- Microdados (Nível Aluno)}
+\label{tab:micro}
+\begin{tabular}{lccccc}
+\toprule
+ & \multicolumn{3}{c}{Média por Grupo} & \multicolumn{2}{c}{Teste Composicional} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-6}
+Variável & Controle & Trat. Pré & Trat. Pós & Diff (Pós--Pré) & $p$-valor \\
+\midrule
+Proporção Feminino        & 0,501 & 0,502 & 0,528 & $+$0,026 & $<$0,001 \\
+Proporção Nec. Especial   & 0,006 & 0,006 & 0,013 & $+$0,006 & $<$0,001 \\
+Taxa de Acerto LP (\%)    & 54,83 & 54,19 & 66,18 & $+$11,99 & $<$0,001 \\
+Taxa de Acerto Mat. (\%)  & 49,25 & 45,61 & 56,66 & $+$11,05 & $<$0,001 \\
+\bottomrule
+\multicolumn{6}{l}{\footnotesize \textit{Nota:} Erros-padrão clusterizados no nível da escola. Necessidade especial é uma variável indicadora} \\
+\multicolumn{6}{l}{\footnotesize para ao menos uma deficiência ou condição registrada no cadastro administrativo.} \\
+\end{tabular}
+\end{table}
+
+Os resultados da Tabela~\ref{tab:micro} mostram que a conversão ao PEI coincide com mudança no perfil dos alunos. A proporção de alunas aumenta 2,6 pontos percentuais após a conversão. A proporção de alunos com necessidade especial registrada também cresce. Esse segundo resultado exige cautela: ele pode refletir mudança real de composição, mas também melhora no registro administrativo das escolas convertidas. Para a identificação, o ponto central é que a composição observada muda após o tratamento. Mesmo quando o sentido substantivo da mudança não é trivial, a existência da mudança importa.
+
+As taxas de acerto em Língua Portuguesa e Matemática também aumentam fortemente no período pós. Esses saltos brutos, contudo, não são efeitos causais. Eles combinam aprendizagem, seleção de alunos, mudanças de participação na prova e diferenças pré-existentes entre escolas. A tarefa dos estimadores apresentados a seguir é separar, na medida do possível, o componente atribuível à política do componente associado à composição.
+
+\begin{table}[htbp]
+\centering
+\caption{Balanceamento Pré-Tratamento --- Microdados}
+\label{tab:balanco}
+\begin{tabular}{lcccc}
+\toprule
+Variável & Controle & Trat. Pré & Diff & $p$-valor \\
+\midrule
+Proporção Feminino        & 0,501 & 0,502 & $+$0,001 & 0,487 \\
+Proporção Nec. Especial   & 0,006 & 0,006 & $+$0,000 & 0,072 \\
+Taxa de Acerto LP (\%)    & 54,83 & 54,19 & $-$0,644 & $<$0,001 \\
+Taxa de Acerto Mat. (\%)  & 49,25 & 45,61 & $-$3,641 & $<$0,001 \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize \textit{Nota:} Comparação restrita ao período pré-tratamento. Erros-padrão} \\
+\multicolumn{5}{l}{\footnotesize clusterizados no nível da escola.} \\
+\end{tabular}
+\end{table}
+
+A Tabela~\ref{tab:balanco} compara tratados e controles antes da adesão. As dimensões demográficas observadas são próximas entre os grupos, mas as escolas que viriam a aderir ao PEI apresentavam desempenho inferior no período pré, especialmente em Matemática. Isso reforça que o programa não foi distribuído aleatoriamente entre escolas equivalentes. Do ponto de vista econométrico, a evidência justifica o uso de estimadores que controlem diferenças fixas, permitam adoção escalonada e incorporem covariáveis de linha de base.
+
+A Tabela~\ref{tab:participacao_saresp} acrescenta um diagnóstico direto sobre participação na prova. No 9º ano, a taxa de participação é bastante semelhante antes e depois da conversão, com aumento descritivo de 1,2 ponto percentual em Língua Portuguesa e 0,8 ponto percentual em Matemática. No Ensino Médio, porém, a taxa cai cerca de 16 pontos percentuais após a adesão ao PEI. Esse resultado não invalida automaticamente as estimativas de proficiência, mas abre um canal substantivo de interpretação: parte do ganho médio estimado no Ensino Médio pode refletir mudança no conjunto de alunos efetivamente observado no SARESP, além de aprendizado ou seleção de matrículas. Por isso, os resultados de Ensino Médio devem ser lidos com cautela adicional.
+
+\input{tabelas/tabela_participacao_saresp.tex}
+
+
+A Figura~\ref{fig:densidade_pos} mostra a distribuição da proficiência padronizada no período pós-tratamento. Em todas as células, a distribuição das escolas com PEI ativo está deslocada à direita em relação ao grupo controle ou ainda não tratado. Essa figura não substitui a estimação causal, pois mistura efeito do programa e seleção das escolas tratadas. Ainda assim, ela é informativa: o resultado que os estimadores buscam explicar não é apenas uma diferença pequena de média, mas uma separação visível na distribuição de proficiência das escolas expostas ao PEI.
+
+\begin{figure}[htbp]
+    \centering
+    \caption{Densidade da proficiência no pós-tratamento}
+    \label{fig:densidade_pos}
+    \includegraphics[width=0.95\textwidth]{tabelas/imagens/densidade_medprof_pos_trat_controle.pdf}
+    \\ \vspace{0.1cm}
+    \footnotesize{Fonte: elaboração própria. Tratamento indica observações escola-ano com PEI ativo; controle indica escolas ainda não tratadas ou nunca tratadas no mesmo calendário.}
+\end{figure}
+
+No painel agregado, a proficiência média das escolas PEI aumenta aproximadamente 29 pontos em Língua Portuguesa e 30 pontos em Matemática após a conversão. O movimento é grande na escala SARESP, mas ainda não pode ser interpretado como causal. Ele mostra que existe um ganho agregado relevante a ser explicado; a questão empírica é quanto desse ganho permanece quando se corrige a comparação entre escolas.
+
+\begin{table}[htbp]
+\centering
+\caption{Estatísticas Descritivas --- Painel Agregado (Nível Escola)}
+\label{tab:agregado}
+\begin{tabular}{lccccc}
+\toprule
+ & \multicolumn{3}{c}{Média por Grupo} & \multicolumn{2}{c}{Diff (Pós--Pré)} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-6}
+Variável & Controle & Trat. Pré & Trat. Pós & Coef. & $p$-valor \\
+\midrule
+Proficiência Média LP     & 243,8 & 244,7 & 273,5 & $+$28,8 & $<$0,001 \\
+Proficiência Média Mat.   & 254,0 & 254,7 & 284,9 & $+$30,2 & $<$0,001 \\
+Proporção Urbana          & 0,959 & 1,000 & 1,000 & --- & --- \\
+Proporção Assentamento    & 0,004 & 0,000 & 0,000 & --- & --- \\
+\bottomrule
+\multicolumn{6}{l}{\footnotesize \textit{Nota:} Proficiência na escala SARESP. O sinal ``---'' indica ausência de variação} \\
+\multicolumn{6}{l}{\footnotesize no grupo tratado para a respectiva característica.} \\
+\end{tabular}
+\end{table}
+
+%-----------------------------------------------------------------------
+\section{Resultados Principais} \label{sec:resultadosprincipais}
+%-----------------------------------------------------------------------
+
+A Tabela \ref{tab:eventstudy_principal} apresenta o efeito médio pós-tratamento para cada combinação de série e disciplina. O número reportado corresponde à média dos coeficientes entre $k=0$ e $k=4$, com o período $k=-1$ normalizado como baseline comum.
+
+\input{tabelas/tabela_principal_eventstudy.tex}
+
+Os resultados completos por período relativo, incluindo erros-padrão para cada estimador e célula série-disciplina, estão reunidos no Apêndice \ref{ap:principal}. Essa organização deixa o texto principal concentrado na síntese dos efeitos médios, mas preserva a trajetória completa das estimações para inspeção.
+
+Os efeitos são positivos em todas as células e em todos os estimadores. No 9º ano, o DR-DiD estima efeito médio de 0,510 desvio-padrão em Língua Portuguesa e 0,601 em Matemática. A aproximação S\&X produz resultados muito próximos: 0,502 e 0,603 desvio-padrão, respectivamente. No Ensino Médio, os efeitos são ainda maiores. O DR-DiD estima 0,571 desvio-padrão em Língua Portuguesa e 0,627 em Matemática; a aproximação S\&X estima 0,601 e 0,675.
+
+A magnitude é substantiva. Como o desvio-padrão anual médio da proficiência no painel gira em torno de algumas dezenas de pontos na escala SARESP, efeitos entre aproximadamente 0,50 e 0,68 desvio-padrão representam deslocamentos grandes dentro da distribuição de desempenho escolar. A leitura em desvios-padrão, portanto, não deve ser vista como abstração estatística: ela corresponde a diferenças relevantes na escala concreta do exame.
+
+Esses valores também são altos em relação à literatura. \textcite{scorzafave2023}, usando dados vinculados e foco no Ensino Médio paulista, estimam ganhos de 0,31 desvio-padrão em Matemática e 0,21 em Língua Portuguesa. Em Pernambuco, as magnitudes reportadas para ensino integral ficam próximas de 0,20 desvio-padrão \cite{Pernambuco}. A diferença não deve ser interpretada automaticamente como evidência de que o efeito pedagógico estimado aqui é maior. Este trabalho usa painel agregado por escola, padronização anual, janela e amostra próprias, além de não observar diretamente o vínculo aluno-nota. Por isso, as magnitudes principais devem ser lidas como evidência agregada de ganhos associados ao PEI e como possivelmente sensíveis à unidade de análise, à participação no SARESP, à composição do grupo de controle e à cobertura das covariáveis.
+
+O ponto central da tabela é a estabilidade relativa das estimativas. A passagem de CS21 para DR-DiD, que incorpora proficiência de linha de base, controles municipais e covariáveis agregadas de composição, não elimina o efeito. A incorporação da aproximação S\&X, agora estimada apenas com logits multinomiais de quatro categorias e sem fallback binário, também não reduz a magnitude dos resultados. No Ensino Médio, a estimativa S\&X é até maior que a estimativa DR-DiD, especialmente em Matemática. As variâncias conservadoras e o número reduzido de células impedem uma inferência precisa sobre essa diferença; a evidência disponível é consistente com estabilidade das estimativas entre DR-DiD e S\&X, mas não permite descartar efeitos composicionais menores.
+
+O TWFE aparece com magnitudes parecidas, mas deve ser lido apenas como referência. A política tem adoção escalonada e os efeitos crescem com o tempo desde a conversão. Nesse contexto, o TWFE pode combinar comparações inadequadas entre escolas já tratadas e escolas tratadas mais tarde. A interpretação principal do trabalho se apoia em CS21, DR-DiD e na aproximação S\&X, sempre condicionada às hipóteses de identificação discutidas no Capítulo \ref{sec:methodsanddata}.
+
+%-----------------------------------------------------------------------
+\section{Dinâmica dos Efeitos} \label{sec:dinamicaefeito}
+%-----------------------------------------------------------------------
+
+As Figuras \ref{fig:event_9ef_lp}--\ref{fig:event_em3_mat} mostram a trajetória dos coeficientes de event study. Em geral, os efeitos aparecem no ano da conversão e crescem nos anos seguintes. Esse padrão poderia refletir seleção dinâmica de alunos, mudanças de participação na prova ou recuperação de escolas inicialmente abaixo da média; também é compatível com uma política que exige tempo para reorganizar práticas pedagógicas, gestão escolar, dedicação docente e uso da jornada ampliada. Como esses canais não são separáveis com os dados disponíveis, a dinâmica deve ser lida como evidência temporal do efeito agregado estimado, não como teste direto de mecanismo.
+
+\begin{figure}[htbp]
+    \centering
+    \caption{9º Ano EF - Língua Portuguesa}
+    \label{fig:event_9ef_lp}
+    \includegraphics[width=0.95\textwidth]{tabelas/imagens/eventstudy_all_9EF_LP.pdf}
+    \\ \vspace{0.1cm}
+    \footnotesize{Fonte: elaboração própria. Coeficientes ATT por tempo relativo à conversão; $k=0$ é o ano de adesão ao PEI e $k=-1$ é o período-base normalizado. As bandas indicam intervalos de confiança de 95\%.}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{9º Ano EF - Matemática}
+    \label{fig:event_9ef_mat}
+    \includegraphics[width=0.95\textwidth]{tabelas/imagens/eventstudy_all_9EF_Mat.pdf}
+    \\ \vspace{0.1cm}
+    \footnotesize{Fonte: elaboração própria. Coeficientes ATT por tempo relativo à conversão; $k=0$ é o ano de adesão ao PEI e $k=-1$ é o período-base normalizado. As bandas indicam intervalos de confiança de 95\%.}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{3ª Série EM - Língua Portuguesa}
+    \label{fig:event_em3_lp}
+    \includegraphics[width=0.95\textwidth]{tabelas/imagens/eventstudy_all_EM3_LP.pdf}
+    \\ \vspace{0.1cm}
+    \footnotesize{Fonte: elaboração própria. Coeficientes ATT por tempo relativo à conversão; $k=0$ é o ano de adesão ao PEI e $k=-1$ é o período-base normalizado. As bandas indicam intervalos de confiança de 95\%.}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{3ª Série EM - Matemática}
+    \label{fig:event_em3_mat}
+    \includegraphics[width=0.95\textwidth]{tabelas/imagens/eventstudy_all_EM3_Mat.pdf}
+    \\ \vspace{0.1cm}
+    \footnotesize{Fonte: elaboração própria. Coeficientes ATT por tempo relativo à conversão; $k=0$ é o ano de adesão ao PEI e $k=-1$ é o período-base normalizado. As bandas indicam intervalos de confiança de 95\%.}
+\end{figure}
+
+Os coeficientes pré-tratamento são menores que os efeitos pós-tratamento e, nas especificações preferidas, não formam um padrão sistemático de antecipação. Há diferenças pontuais em algumas células, o que é esperado em um exercício com múltiplas séries, disciplinas e estimadores. Ainda assim, a dinâmica principal é clara: os efeitos pós-tratamento estimados são positivos, persistentes e crescentes. Essa leitura não elimina a preocupação com regressão à média: o balanceamento pré-tratamento mostra que as escolas que viriam a aderir ao PEI tinham desempenho inferior, especialmente em Matemática, de modo que parte do crescimento observado poderia refletir convergência mecânica. O diagnóstico de suporte de baseline abaixo reduz, mas não elimina, essa ameaça.
+
+A dinâmica sugere efeitos mais fortes em Matemática do que em Língua Portuguesa. Essa diferença deve ser interpretada como heterogeneidade descritiva por disciplina, não como teste definitivo de mecanismo. Os dados disponíveis não permitem distinguir se a diferença decorre de aprendizado, seleção de alunos, participação na prova ou combinação desses canais.
+
+%-----------------------------------------------------------------------
+\section{Composição e Robustez} \label{sec:robustez}
+%-----------------------------------------------------------------------
+
+A preocupação central do trabalho é que parte do ganho observado nas escolas PEI possa ser gerada por mudança composicional. Antes de olhar os p-valores, é importante qualificar o diagnóstico: a comparação entre DR-DiD e a aproximação S\&X usa apenas 24 a 26 células válidas por série-disciplina e adota variância conservadora, igual à soma das variâncias marginais. Portanto, o teste tem baixa potência para detectar diferenças pequenas ou moderadas. A Tabela \ref{tab:hausman_composicao} apresenta essa comparação e reporta também a diferença mínima detectável com 80\% de potência.
+
+\input{tabelas/tabela_hausman_composicao.tex}
+
+Os p-valores são altos em todas as células, mas a diferença mínima detectável fica entre 0,198 e 0,248 desvio-padrão. Assim, a leitura correta é restrita: dadas as covariáveis agregadas disponíveis e a variância conservadora usada no teste, não há evidência de que a aproximação composicional produza efeitos estatisticamente distintos do DR-DiD, mas o teste não descarta diferenças menores que aproximadamente 0,20--0,25 desvio-padrão. Ele tampouco prova que não há seleção de alunos, nem substitui um estimador individual com microdados perfeitamente vinculados. Os p-valores devem ser lidos como diagnóstico de sensibilidade, não como confirmação forte de robustez composicional.
+
+Também é importante notar o que a aproximação S\&X efetivamente conseguiu estimar. No 9º ano, foram 26 células válidas por disciplina. No Ensino Médio, foram 24. As células excluídas não foram substituídas por outro estimador: elas foram removidas por falta de suporte comum suficiente no logit multinomial. Esse ponto é relevante porque evita reportar como S\&X uma estimativa que, na prática, seria apenas um DR-DiD binário em uma subamostra. O Apêndice \ref{ap:sx} documenta essas células de forma completa, com ATTs por coorte e período relativo, erros-padrão, variâncias e status de suporte comum.
+
+A Tabela \ref{tab:diagnostico_regressao_media} apresenta um diagnóstico para regressão à média. A coluna de suporte de baseline reestima o DR-DiD restringindo a amostra ao intervalo entre o 10º e o 90º percentil da proficiência de linha de base das escolas tratadas. Essa restrição força a comparação a ocorrer em uma região da distribuição mais próxima das escolas que aderiram ao PEI.
+
+\input{tabelas/tabela_diagnostico_regressao_media.tex}
+
+Os resultados mudam pouco em relação à especificação principal. No 9º ano, o efeito em Língua Portuguesa passa de 0,510 para 0,533 desvio-padrão e o de Matemática passa de 0,601 para 0,612. No Ensino Médio, Língua Portuguesa passa de 0,571 para 0,581, enquanto Matemática passa de 0,627 para 0,607. Esse exercício não elimina completamente a possibilidade de regressão à média, mas reduz a preocupação de que os resultados sejam conduzidos apenas por comparação entre escolas tratadas inicialmente fracas e controles muito distantes na linha de base. As duas últimas colunas também mostram que controles nunca tratados com baixo desempenho inicial não apresentam uma recuperação mecânica capaz de reproduzir a magnitude dos efeitos estimados para o PEI. A dinâmica completa desse diagnóstico, comparando o modelo principal com a amostra de suporte de baseline, é reportada no Apêndice \ref{ap:regmedia}.
+
+A Tabela \ref{tab:spillover_regional} avalia a sensibilidade dos resultados à possível contaminação regional do grupo de controle. A primeira restrição remove controles em diretorias de ensino que já tinham ao menos uma escola PEI ativa no ano; a segunda usa uma unidade mais fina, o par diretoria-distrito.
+
+\input{tabelas/tabela_spillover_regional.tex}
+
+As estimativas permanecem positivas e próximas às principais. A exclusão por diretoria reduz moderadamente os efeitos no 9º ano, de 0,510 para 0,482 em Língua Portuguesa e de 0,601 para 0,577 em Matemática, mas não altera a conclusão qualitativa. No Ensino Médio, os efeitos também permanecem próximos. A restrição por diretoria-distrito é ainda mais estável. Como essa abordagem usa proximidade administrativa, e não distância geográfica entre escolas, ela deve ser lida como diagnóstico parcial de spillovers, não como solução definitiva para esse canal. Diretorias de ensino podem cobrir áreas amplas, enquanto o mecanismo documentado por \textcite{santos2022_spillover_pei_escolas_regulares} opera por proximidade efetiva entre escolas e migração de alunos. Os \textit{event studies} completos das duas restrições regionais aparecem no Apêndice \ref{ap:spillover}, permitindo comparar a especificação principal com cada modelo de exclusão regional período a período.
+
+A Tabela \ref{tab:robustez_sem_imputacao} apresenta um diagnóstico de sensibilidade à imputação, repetindo o DR-DiD com covariáveis brutas completas, sem imputação por média anual.
+
+\input{tabelas/tabela_robustez_sem_imputacao.tex}
+
+O diagnóstico evidencia uma tensão importante. Exigir covariáveis completas reduz a amostra do 9º ano para cerca de 44\% da amostra principal e inviabiliza a estimação no Ensino Médio. Nas duas células em que a estimação roda, os efeitos permanecem positivos, mas caem para 0,384 desvio-padrão em Língua Portuguesa e 0,502 em Matemática. Esse exercício não substitui a especificação principal, porque altera a composição da amostra; sua função é mostrar que os dados faltantes nas covariáveis são empiricamente relevantes e que a imputação por média anual preserva maior cobertura da rede estadual.
+
+\input{tabelas/tabela_diagnostico_imputacao.tex}
+
+A Tabela \ref{tab:diagnostico_imputacao} ajuda a interpretar essa queda. No 9º ano, as observações completas e imputadas têm proficiência de linha de base muito parecida, mas a amostra completa contém proporção menor de escolas tratadas. No Ensino Médio, o contraste é mais severo: há pouco mais de mil observações completas contra quase 28 mil com ao menos uma covariável imputada, e a proporção de tratadas na amostra completa é cerca de um terço da observada entre as imputadas. Portanto, a especificação sem imputação é melhor interpretada como diagnóstico de sensibilidade e cobertura dos dados, não como substituto direto da especificação principal. O Apêndice \ref{ap:imputacao} apresenta os ATTs por período relativo para esse diagnóstico. No Ensino Médio, a coluna sem imputação aparece vazia porque a perda de cobertura impede uma estimação comparável.
+
+Em conjunto, os resultados indicam ganhos persistentes associados à adesão ao PEI no nível agregado, embora a magnitude deva ser interpretada com cautela diante da sensibilidade à amostra sem imputação, da queda de participação no SARESP no Ensino Médio e das limitações do teste composicional. A evidência é mais forte para a pergunta que os dados permitem responder: escolas convertidas para o modelo integral apresentam ganhos médios de proficiência em relação a escolas comparáveis dentro da janela 2011--2018. A evidência é mais limitada para a pergunta que exigiria microdados plenamente integrados: quanto desse ganho vem exclusivamente de aprendizado individual, líquido de toda seleção e de mudanças de participação na prova. Essa distinção é a fronteira empírica do trabalho. O exercício mostra que a composição observável agregada não elimina os resultados, mas também deixa claro que a decomposição individual completa permanece fora do alcance dos dados disponíveis.

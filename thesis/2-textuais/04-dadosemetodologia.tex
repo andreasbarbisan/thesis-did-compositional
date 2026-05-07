@@ -1,0 +1,178 @@
+\chapter{Dados e Metodologia} \label{sec:methodsanddata}
+
+Este capítulo descreve as bases de dados e a estratégia de estimação. A seção \ref{sec:data} descreve com detalhes os dados utilizados. A seção \ref{sec:descriptive} traz estatísticas descritivas acerca dos dados utilizados. A seção \ref{sec:empiricalstrategy} detalha a estimação realizada neste trabalho, contrastando-a com o estimador que tentei replicar e mostrando em quais pontos a análise ficou limitada. Por fim, a seção \ref{sec:ameacas_identificacao} discute possíveis problemas que possam afetar a identificação do trabalho.
+
+%-----------------------------------------------------------------------
+\section{Dados} \label{sec:data}
+%-----------------------------------------------------------------------
+
+A principal base de resultados vem do Sistema de Avaliação de Rendimento Escolar do Estado de São Paulo (SARESP), disponibilizado pela Secretaria da Educação do Estado de São Paulo.\footnote{As bases completas podem ser acessadas no portal Dados Abertos da Educação: \url{https://dados.educacao.sp.gov.br/}.} O SARESP é uma avaliação anual feita em quase todas as escolas da rede, medindo proficiência em Língua Portuguesa e Matemática. Este trabalho usa o 9º ano do Ensino Fundamental e a 3ª série do Ensino Médio, etapas comparáveis ao longo do período analisado e relevantes para avaliar efeitos acumulados da política. O SARESP possui uma metodologia própria sobre a categorização das notas, que pode ser vista com mais detalhes no Apêndice \ref{ap:apendice1}.
+
+A unidade de análise é o painel escola-ano-série-disciplina. A escolha decorre da estrutura administrativa disponível: os microdados de matrícula permitem caracterizar a composição das escolas, mas não permitem ligar, de forma confiável, cada aluno matriculado à sua nota individual no SARESP. Isso ocorre porque a forma pela qual o código dos alunos é categorizado na base de resultados difere da usada na base de matrículas. Portanto, a estimação principal é agregada por escola, ainda que informada por estatísticas construídas a partir dos microdados.
+
+A janela principal vai de 2011 a 2018. O ano de 2011 fornece o período imediatamente anterior ao início do PEI, implementado em 2012. O limite superior de 2018 preserva uma janela pré-pandemia e evita a quebra de comparabilidade associada à COVID-19 e à interrupção do SARESP em 2020. Escolas que aderem ao PEI apenas após 2018 são tratadas como ainda não tratadas dentro da janela principal.
+
+O desfecho é a proficiência média da escola em cada ano, série e disciplina. Para facilitar a comparação entre anos, as notas são padronizadas dentro de cada ano:
+
+\begin{equation}
+Y_{it}^{std} = \frac{Y_{it} - \bar{Y}_{t}}{\operatorname{sd}(Y_t)},
+\end{equation}
+
+em que $Y_{it}$ é a proficiência média da escola $i$ no ano $t$, $\bar{Y}_{t}$ é a média anual e $\operatorname{sd}(Y_t)$ é o desvio-padrão anual. Os coeficientes estimados podem, portanto, ser interpretados em desvios-padrão da distribuição anual de proficiência.
+
+Além do painel de proficiência, o trabalho usa microdados de matrícula para construir covariáveis agregadas de composição por escola, ano e série. Essas covariáveis incluem proporção de alunas, proporção de alunos com necessidade especial registrada, idade média, proporção de alunos pretos ou pardos, proporção de alunos com raça/cor declarada, proporção de beneficiários do Programa Bolsa Família e tamanho da escola em quantidade de alunos. A variável de necessidade especial é uma indicadora igual a um quando há registro de alguma deficiência ou condição educacional específica no cadastro administrativo. O dicionário da base de dados contempla as seguintes categorias: múltipla, cegueira, baixa visão, surdez severa ou profunda, surdocegueira, deficiência física associada à paralisia cerebral, deficiência física-cadeirante, síndrome de Down, deficiência intelectual, visão monocular, autismo infantil, síndrome de Asperger, síndrome de Rett, transtorno desintegrativo da infância e altas habilidades/superdotação.
+
+Quando necessário, valores ausentes nas covariáveis de composição são imputados por médias anuais. Essa escolha preserva a cobertura do painel e evita que a estimação principal seja determinada apenas pelas escolas com cadastro mais completo. O Capítulo \ref{sec:results} apresenta um diagnóstico de sensibilidade sem imputação para documentar o custo amostral dessa decisão.
+
+Essa construção reflete a principal limitação empírica do trabalho. Os microdados não são usados para estimar efeitos individuais do PEI, porque a ligação entre matrícula e nota individual não é confiável no período relevante. As bases de dados de matrícula e do resultado do SARESP não possuem o mesmo código de aluno, impedindo cruzar as duas bases para controle perfeito do efeito migratório. Isso só seria possível com acesso administrativo autorizado pela Secretaria de Educação, como em \textcite{scorzafave2023}. Esses dados entram como fonte de covariáveis agregadas, permitindo aproximar mudanças observáveis de composição no nível da escola, mas não no nível do aluno.
+
+Também incorporo controles municipais a partir de uma base de dados de características locais, disponíveis no IBGE\footnote{Disponível em \url{https://www.ibge.gov.br/estatisticas/economicas/contas-nacionais/9088-produto-interno-bruto-dos-municipios.html} e \url{https://www.ibge.gov.br/estatisticas/sociais/populacao/9103-estimativas-de-populacao.html}}. As covariáveis municipais usadas são o PIB municipal per capita, a população total do município e a proporção da população entre 0 e 19 anos.
+
+
+%-----------------------------------------------------------------------
+\section{Evidência Descritiva} \label{sec:descriptive}
+%-----------------------------------------------------------------------
+
+Antes da estimação causal, as Figuras \ref{fig:notas9ano} e \ref{fig:notas3ano} mostram a evolução das notas médias do SARESP por etapa escolar. Elas indicam que as escolas que aderem ao PEI apresentam crescimento de proficiência após a conversão. Essa evidência é útil para visualizar o padrão básico dos dados, mas não identifica o efeito causal do programa. O aumento observado pode refletir aprendizagem, diferenças prévias entre escolas, seleção na entrada do programa e mudança na composição dos alunos avaliados.
+
+\begin{figure}[htbp]
+    \centering
+    \caption{Evolução das notas do SARESP - 9º Ano Ensino Fundamental}
+    \label{fig:notas9ano}
+    \includegraphics[width=1\textwidth]{tabelas/imagens/medias_ef9_combine.pdf}
+    \\ \vspace{0.1cm}
+    \footnotesize{Fonte: \href{https://dados.educacao.sp.gov.br/story/saresp}{Dados Abertos da Educação}, elaboração do autor.}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{Evolução das notas do SARESP - 3ª Série Ensino Médio}
+    \label{fig:notas3ano}
+    \includegraphics[width=1\textwidth]{tabelas/imagens/medias_em3_combine.pdf}
+    \\ \vspace{0.1cm}
+    \footnotesize{Fonte: \href{https://dados.educacao.sp.gov.br/story/saresp}{Dados Abertos da Educação}, elaboração do autor.}
+\end{figure}
+
+As figuras também ajudam a interpretar a escala do problema. Em termos absolutos, as escolas PEI parecem se deslocar para níveis mais altos de proficiência, sobretudo no Ensino Médio. No entanto, a comparação visual entre médias brutas não separa o canal pedagógico direto do canal composicional. Uma escola pode melhorar porque ensina melhor, mas também porque passa a receber, reter ou avaliar um conjunto diferente de alunos. Essa distinção é exatamente o ponto que motiva a estratégia empírica abaixo.
+
+Na estimação principal, por isso, a proficiência é padronizada por ano e os efeitos são interpretados em desvios-padrão. Essa escolha evita que mudanças na escala ou na distribuição anual do SARESP contaminem a comparação entre períodos. O resultado empírico a ser estimado não é apenas se a média das escolas PEI cresceu, mas se esse crescimento permanece quando comparado a escolas ainda não tratadas ou nunca tratadas, em uma estrutura compatível com adoção escalonada.
+
+%-----------------------------------------------------------------------
+
+\section{Estratégia Empírica} \label{sec:empiricalstrategy}
+%-----------------------------------------------------------------------
+
+A estratégia empírica explora a adoção escalonada do PEI entre escolas estaduais paulistas. Seja $G_i$ o primeiro ano em que a escola $i$ adere ao programa. O parâmetro básico de interesse é o efeito médio do tratamento para a coorte $g$ no período $t$:
+
+\begin{equation}
+ATT(g,t) = E\left[Y_{it}(g) - Y_{it}(0) \mid G_i=g\right], \quad t \geq g,
+\end{equation}
+
+em que $Y_{it}(g)$ é o resultado potencial da escola caso seja tratada a partir do ano $g$, e $Y_{it}(0)$ é o resultado potencial sem tratamento. O problema central é que $Y_{it}(0)$ não é observado para escolas já convertidas. A identificação depende, portanto, de construir um contrafactual plausível a partir de escolas que ainda não aderiram ou que não aderem ao programa dentro da janela analisada.
+
+A Tabela \ref{tab:estimadores} resume a progressão dos estimadores usados no trabalho. A lógica não é apresentar quatro respostas equivalentes. A sequência parte de um \textit{benchmark} tradicional, corrige o problema da adoção escalonada, adiciona covariáveis observáveis e, por fim, testa a sensibilidade dos resultados à mudança de composição.
+
+\begin{table}[htbp]
+\centering
+\caption{Papel dos estimadores na estratégia empírica}
+\label{tab:estimadores}
+\small
+\begin{threeparttable}
+\begin{tabular}{p{2.4cm}p{3.3cm}p{3.7cm}p{3.5cm}}
+\toprule
+Estimador & Comparação explorada & O que corrige & Limitação principal \\
+\midrule
+TWFE & Event study com efeitos fixos de escola e ano & Diferenças fixas entre escolas e choques comuns por ano & Pode fazer comparações proibidas sob adoção escalonada \\
+CS21 & $ATT(g,t)$ por coorte e período & Heterogeneidade de efeitos e adoção escalonada & Não corrige, por si só, mudança composicional em RCS \\
+DR-DiD & $ATT(g,t)$ com regressão de resultado e ponderação & Covariáveis observáveis e robustez dupla & Depende das covariáveis agregadas disponíveis \\
+S\&X aprox. & Células 2x2 por coorte e tempo relativo, com logit multinomial 4-categorias & Sensibilidade à composição observável no nível agregado & Não substitui o estimador individual com vínculo aluno-nota \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item \textit{Nota:} A última linha não corresponde à implementação literal do estimador individual de \textcite{santannaxu}; trata-se de uma aproximação agregada adaptada à ausência de vínculo confiável entre matrícula individual e nota individual.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+A partir daqui, $i$ indexa escolas, e não alunos como no modelo microeconômico do Capítulo \ref{sec:micromodel}. A primeira especificação é um \textit{event study} com efeitos fixos de escola e ano. Seja $k=t-G_i$ o tempo relativo à conversão; $\alpha_i$ representa efeitos fixos de escola, $\lambda_t$ representa efeitos fixos de ano e $X_{it}$ contém covariáveis agregadas usadas como controles:
+
+\begin{equation}
+Y_{it}^{std} = \alpha_i + \lambda_t + \sum_{k \neq -1} \beta_k \mathbb{I}\{t - G_i = k\} + X_{it}'\gamma + \varepsilon_{it}.
+\end{equation}
+
+Essa especificação é útil como referência, mas não é o estimador preferido. Quando há adoção escalonada e efeitos heterogêneos no tempo, o TWFE pode comparar escolas já tratadas com escolas tratadas posteriormente, atribuindo pesos de difícil interpretação ao efeito médio.
+
+A segunda especificação usa o estimador de \textcite{callawaysantanna}. O método estima separadamente $ATT(g,t)$ para cada coorte e período, usando como grupo de comparação escolas ainda não tratadas ou nunca tratadas. Com isso, evita-se que escolas já expostas ao PEI sirvam de controle para escolas tratadas mais tarde. A agregação dinâmica desses efeitos gera os coeficientes do event study, interpretados como efeitos médios por tempo relativo à conversão.
+
+A terceira especificação incorpora covariáveis por meio do estimador duplamente robusto associado a \textcite{santannazhao}. A intuição é combinar dois caminhos para construir o contrafactual. O primeiro é um modelo de resultado, que ajusta diferenças observáveis entre escolas. O segundo é um modelo de propensão, que repondera unidades de controle para torná-las mais parecidas com as tratadas. Se ao menos um desses componentes estiver corretamente especificado, o estimador preserva boas propriedades assintóticas. Neste trabalho, as covariáveis incluem proficiência de linha de base, controles municipais e medidas agregadas de composição construídas a partir dos microdados de matrícula.
+
+A quarta especificação é a adaptação mais importante deste trabalho. \textcite{santannaxu} mostram que, em cortes transversais repetidos, a identificação usual de DiD pode falhar quando o tratamento altera a composição dos indivíduos observados. A proposta original dos autores modela a distribuição das covariáveis individuais e constrói contrafactuais capazes de acomodar mudanças composicionais. Em aplicações desse tipo, isso envolve estimar probabilidades de pertencimento a grupos e períodos, por exemplo via logits multinomiais, e usar ponderação ou pareamento para comparar distribuições individuais semelhantes.
+
+O desenho dos dados deste trabalho impede essa implementação literal. Não observamos, no mesmo registro confiável, a matrícula individual e a nota individual do SARESP. Portanto, não é possível estimar o modelo no nível do aluno nem realizar matching individual entre alunos tratados e controles com base no mesmo conjunto de características e resultados. A adaptação desloca o problema para o nível escola-ano-série. Ela não decompõe perfeitamente aprendizado e seleção, mas testa se a incorporação de composição observável altera o efeito estimado.
+
+Para cada coorte $g$ e tempo relativo $k$, construo uma comparação 2x2 usando os anos $g-1$ e $g+k$. Defina $D_i=1$ para escolas da coorte $g$ e $T_i=1$ para observações no período $g+k$. Isso gera quatro células:
+
+\begin{equation}
+(D_i,T_i) \in \{(0,0),(0,1),(1,0),(1,1)\}.
+\end{equation}
+
+A célula $(1,1)$ contém escolas tratadas no período pós; $(1,0)$ contém as mesmas escolas no período imediatamente anterior à conversão; $(0,1)$ e $(0,0)$ contêm controles nos mesmos anos, respectivamente. O primeiro passo é estimar um logit multinomial para a probabilidade de cada célula condicional às covariáveis de baseline:
+
+\begin{equation}
+p_{dt}(X_i)=Pr(D_i=d,T_i=t \mid X_i), \quad d,t \in \{0,1\}.
+\end{equation}
+
+As covariáveis $X_i$ são fixadas no ano $g-1$, antes da conversão da coorte. Essa decisão evita transformar características pós-tratamento em controles ruins. Na implementação, uso as covariáveis de composição com melhor suporte no painel agregado: proporção de alunas, idade média, proporção de alunos pretos ou pardos, proporção de beneficiários do Bolsa Família e log do número de alunos. As variáveis são padronizadas dentro de cada célula 2x2 para melhorar a estabilidade numérica dos logits multinomiais.
+
+A partir dessas probabilidades, construo pesos de Hájek para cada célula. O operador $E_n[\cdot]$ denota a média amostral e, no denominador abaixo, a normalização é feita dentro da célula $(d,t)$:
+
+\begin{equation}
+w_{dt}(D_i,T_i,X_i)=
+\frac{\mathbb{I}\{D_i=d,T_i=t\}\,p_{11}(X_i)/p_{dt}(X_i)}
+{E_n[p_{11}(X_i)/p_{dt}(X_i) \mid D_i=d,T_i=t]}.
+\end{equation}
+
+Esses pesos reponderam as demais células para a distribuição observável da célula tratada no pós-tratamento, $(1,1)$. Em seguida, estimo três regressões de resultado, uma para cada célula contrafactual necessária:
+
+\begin{equation}
+m_{dt}(X_i)=E[Y_i \mid D_i=d,T_i=t,X_i], \quad (d,t)\in\{(1,0),(0,1),(0,0)\}.
+\end{equation}
+
+O estimador agregado inspirado em S\&X combina ponderação e regressão de resultado. Para cada par $(g,k)$, a função estimada é:
+
+\begin{equation}
+\widehat{\tau}_{gk}^{SX} =
+E_n\left[
+w_{11}(Y-m_{10}-m_{01}+m_{00})
+-w_{10}(Y-m_{10})
+-w_{01}(Y-m_{01})
++w_{00}(Y-m_{00})
+\right].
+\end{equation}
+
+A interpretação é direta: a primeira parcela usa a célula tratada no pós, enquanto as demais ajustam a evolução contrafactual usando as três células restantes. Depois, os efeitos $\widehat{\tau}_{gk}^{SX}$ são agregados por tempo relativo, com pesos proporcionais ao número de escolas tratadas observadas em cada célula pós.
+
+Essa forma é a versão aumentada da diferença-em-diferenças 2x2. Se os termos de regressão fossem omitidos, o estimador colapsaria para a diferença ponderada $E_n[w_{11}Y]-E_n[w_{10}Y]-E_n[w_{01}Y]+E_n[w_{00}Y]$. Os termos $m_{dt}(X_i)$ recentram cada célula contrafactual por regressão de resultado, preservando a intuição da comparação DiD e acrescentando ajuste por covariáveis observáveis.
+
+Esse procedimento exigiu uma restrição importante de suporte comum. Como as escolas tratadas representam parcela pequena da amostra, algumas células geram probabilidades $p_{11}(X_i)$ muito próximas de zero para grande parte dos controles. Uma primeira tentativa de usar \textit{propensity weighting} de forma mais ampla mostrou esse problema: reduzir demais os cortes de suporte permitia estimar mais células, mas produzia pesos excessivos e estimativas dominadas por regiões sem comparação substantiva. A versão final, portanto, não força essas células. Quando o logit multinomial indica baixo suporte comum, a célula é excluída da agregação.
+
+Essa escolha é central para a interpretação dos resultados. A aproximação S\&X reportada neste trabalho não usa fallback binário para DR-DiD e não substitui células difíceis por outro estimador. Ela só reporta células estimadas com logit multinomial de quatro categorias e regressões de resultado. Na rodada final, o procedimento produz 26 células válidas para cada disciplina do 9º ano e 24 células válidas para cada disciplina do Ensino Médio; as exclusões restantes decorrem de suporte comum insuficiente.
+
+Todos os event studies são reportados com baseline universal em $k=-1$, isto é, o ano imediatamente anterior à conversão é normalizado para zero. Essa escolha segue a recomendação recente de interpretar event studies a partir de uma base comum de comparação \cite{baker2025, roth_interpreting_2026}. Os erros-padrão são clusterizados no nível da escola sempre que permitido pelo estimador. Para a aproximação S\&X agregada, a inferência é construída a partir das variâncias das comparações 2x2 e deve ser interpretada como aproximada.
+
+Por fim, para avaliar a relevância empírica da mudança composicional, comparo o DR-DiD com a aproximação S\&X por meio de um diagnóstico tipo Hausman. A lógica é simples: se a correção composicional agregada altera sistematicamente o estimador, a diferença entre os dois deve aparecer nos resultados. A interpretação, porém, é necessariamente cautelosa. Como a aproximação S\&X é estimada em poucas células e a variância da diferença é construída de forma conservadora, p-valores altos devem ser lidos como ausência de evidência de diferença estatística, não como prova de ausência de mudança composicional relevante.
+
+\section{Ameaças à Identificação} \label{sec:ameacas_identificacao}
+
+A estratégia empírica acima aproxima um contrafactual para escolas PEI usando escolas ainda não tratadas ou nunca tratadas. Essa comparação é mais adequada do que uma diferença simples de médias, mas não elimina todas as explicações alternativas. Quatro ameaças são especialmente relevantes neste trabalho.
+
+A primeira é regressão à média. Como parte das escolas que aderem ao PEI apresentava desempenho inferior antes da conversão, parte do crescimento posterior poderia ocorrer mesmo sem o programa. Em termos simples, escolas com notas muito baixas em um ano tendem a apresentar alguma recuperação mecânica nos anos seguintes, ainda que nenhuma política nova seja implementada. Para avaliar essa possibilidade, apresento no Capítulo \ref{sec:results} um diagnóstico que restringe a amostra ao suporte de proficiência de linha de base das escolas tratadas e compara a evolução de controles nunca tratados com baixo e alto desempenho inicial.
+
+A segunda ameaça é a presença de transbordamentos. A literatura sobre o PEI documenta que escolas regulares próximas a escolas convertidas podem ser afetadas pela migração de alunos e por mudanças na composição local. Se parte do grupo de controle é negativamente afetada pela expansão do PEI, o contrafactual estimado fica abaixo do que teria ocorrido na ausência do programa, e o ATT pode ser superestimado. Como diagnóstico, reestimo o DR-DiD excluindo controles localizados em diretorias de ensino ou pares diretoria-distrito que já tinham ao menos uma escola PEI ativa no ano. Essa estratégia não substitui uma medida de distância geográfica entre escolas, mas testa se a magnitude principal depende de controles administrativamente próximos às escolas tratadas.
+
+A terceira ameaça vem dos dados faltantes nas covariáveis de composição. A especificação principal usa imputação por média anual para preservar a cobertura do painel. Essa escolha evita que a amostra seja determinada apenas por escolas com cadastro administrativo mais completo, mas também introduz uma hipótese adicional: a informação imputada não deve criar diferenças artificiais entre tratados e controles. A robustez sem imputação, apresentada no Capítulo \ref{sec:results}, mostra que exigir covariáveis completas reduz fortemente a amostra e altera as magnitudes estimadas. Por isso, essa robustez é lida como diagnóstico de sensibilidade, e não como substituto direto da especificação principal.
+
+A quarta ameaça é a seleção de participação no SARESP. Mesmo que a matrícula permaneça observável, o conjunto de alunos que efetivamente realiza a prova pode mudar após a conversão para o PEI. Se alunos com menor proficiência deixam de fazer o exame em maior proporção, a proficiência média observada pode aumentar sem refletir integralmente aprendizado. O Capítulo \ref{sec:results} apresenta um diagnóstico da razão entre participantes do SARESP e matrículas, que recomenda cautela especial para os resultados do Ensino Médio.
+
+Essas ameaças não invalidam automaticamente o desenho empírico, mas delimitam sua interpretação. O trabalho estima ganhos médios associados à adesão ao PEI em um painel agregado de escolas. Ele não prova, de forma isolada, que todo o ganho observado decorre exclusivamente de aprendizagem individual causada pelo programa. A contribuição está em mostrar que os ganhos permanecem positivos sob estimadores modernos para adoção escalonada e sob uma aproximação composicional agregada, ao mesmo tempo em que explicita os canais que os dados disponíveis ainda não permitem fechar completamente.

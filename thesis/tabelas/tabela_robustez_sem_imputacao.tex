@@ -1,0 +1,21 @@
+\begin{table}[htbp]
+\centering
+\caption{Sensibilidade à imputação das covariáveis}
+\label{tab:robustez_sem_imputacao}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccc}
+\toprule
+Série-disciplina & DR-DiD (principal) & DR-DiD sem imputação & N principal & N sem imputação & Fração N \\
+\midrule
+9EF LP & 0.510 & 0.384 & 24754 & 10804 & 0.436 \\
+9EF Mat & 0.601 & 0.502 & 24769 & 10819 & 0.437 \\
+EM3 LP & 0.571 & -- & 27515 & -- & -- \\
+EM3 Mat & 0.627 & -- & 27530 & -- & -- \\
+\bottomrule
+\end{tabular}
+}
+\vspace{0.2cm}
+\begin{flushleft}
+\footnotesize Nota: a versão sem imputação usa apenas observações com covariáveis brutas completas. O exercício deve ser lido como diagnóstico de sensibilidade e cobertura amostral, não como substituto direto da especificação principal.
+\end{flushleft}
+\end{table}

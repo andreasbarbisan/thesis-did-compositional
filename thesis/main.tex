@@ -1,0 +1,255 @@
+\documentclass[
+    12pt, % tamanho da fonte
+    openright, % numeração começa apenas na primeira página textual
+    oneside, % impressão apenas em anverso (para imprimir em anverso e reverso, opção: twoside)
+    a4paper, % formato da folha
+    %draft,                 % descomentar para compilação mais veloz (figuras e links internos não carregam)
+    chapter=TITLE, % títulos em maiúsculas
+    section=Title, % seções sem formatação adicional
+    subsection=Title, % subseções sem formatação adicional
+    subsubsection=Title, % (sub-)subseções sem formatação adicional
+    spanish, % suporte a idioma para hifenização
+    english, % suporte a idioma para hifenização
+    brazil % suporte a idioma para hifenização (último idioma declarado é o principal do documento)
+]{insper-abntex2}
+
+\usepackage{hyperref}
+
+\usepackage[a4paper,left=3cm,top=3cm,right=2cm,bottom=2cm]{geometry}
+
+\usepackage{epigraph}
+
+
+% ----
+% Importando pacotes
+% ----
+
+\usepackage{xcolor} % controle de cores
+\usepackage{graphicx} % inclusão de gráficos e imagens
+\usepackage{microtype} % melhorias de tipografia, espaçamento e justiificação
+\usepackage{caption} % legendas
+\usepackage{imakeidx} % criação de índices
+\makeindex % compilar índice
+\usepackage[
+    acronym, % configurações específicas para acrônimos
+    xindy={language=portuguese}, % para o índice remissivo
+    subentrycounter, % contagem de subentradas no glossário
+    seeautonumberlist, % ver também números automáticos na lista
+    nonumberlist=true % sem numeração das entradas no glossário
+]{glossaries} % gerenciamento de glossários
+\input{3-pos-textuais/glossario} % definições de glossário
+\makeglossaries % compilar glossário
+
+\usepackage{
+    fontspec
+} % uso de fontes TrueType (requer motor de compilação XeTeX ou LuaTeX)
+
+% Para bibliografia
+\usepackage{csquotes} % gerenciamento de citações
+\usepackage[
+    backend=biber, % backend de processamento do arquivo .bib
+    style=abnt, % estilo de citações e referências
+    sorting=nyt, % ordena as referências em nome, ano e título, respectivamente
+    extrayear, % diferencia os anos com letras na bibliografia
+    repeatfields, % imprime os campos repetidos na bibliografia
+]{biblatex}
+\renewcommand*{\mkbibnamegiven}[1]{#1} % prenome dado não é modificado
+\renewcommand*{\mkbibnamefamily}[1]{#1} % sobrenome dado não é modificado
+\DeclareFieldFormat{url}{Dispon\'ivel em: \url{#1}} % exibição da URL nas referências
+
+% Pacotes para uso matemático (deletar e incluir pacotes aqui conforme necessidade)
+\usepackage{amsmath} % equações avançadas
+\usepackage{amssymb} % símbolos adicionais
+\usepackage{amsfonts} % fontes adicionais
+\usepackage{amsthm} % teoremas (criação e personalização)
+\usepackage{mathtools} % extensão de amsmath
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{longtable}
+\usepackage{makecell}
+\usepackage{pifont}
+
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
+\usepackage{fancyhdr}
+
+\usepackage{
+    lipsum
+} % geração de texto dummy (apenas para teste de formatação; permitido excluir)
+
+
+
+% Número de página
+\fancypagestyle{plain}{
+    \fancyhf{} % Limpa cabeçalho e rodapé
+    \renewcommand{\headrulewidth}{0pt} % Remove linha do cabeçalho
+    \fancyfoot{} % Remove rodapé
+    \fancyhead[R]{{\fontsize{10}{12}\selectfont\arabic{page}}} % Número da página no canto superior direito
+}
+
+
+
+
+% ----
+% Configurações de aparência do PDF final
+% ----
+
+% informações do PDF (não editar)
+\makeatletter
+\hypersetup{%
+    %pagebackref=true,
+    pdftitle={\@title},
+    pdfauthor={\@author},
+    pdfsubject={\imprimirpreambulo},
+    pdfcreator={LaTeX with abnTeX2},
+    pdfkeywords={abnt, latex, abntex, abntex2, trabalho acadêmico, Insper},
+    colorlinks=true,
+    linkcolor=blue, % cor dos links internos
+    citecolor=blue, % cor dos links das citações
+    filecolor=magenta, % cor dos links dos arquivos
+    urlcolor=blue, % cor dos links das URL's
+    bookmarksdepth=4
+}
+\makeatother
+
+% Configurações de espaçamento (ABNT)
+% Indentação dos parágrafos (recuo da primeira linha)
+\setlength{\parindent}{1.25cm}
+
+% Espaçamento entre linhas (1,5 da fonte)
+\linespread{1.5}  % Alternativa recomendada
+% ou, se quiser definir diretamente:
+% \renewcommand{\baselinestretch}{1.5}
+
+% Espaçamento entre parágrafos (ABNT exige sem espaçamento extra)
+\setlength{\parskip}{0pt}
+
+% Espaçamento entre referências (espaço duplo entre referências)
+\setlength{\bibitemsep}{12pt}
+
+
+% ----
+% Informações Complementares
+% ----
+
+% Edite conforme necessidade
+
+% Fonte (descomentar a fonte a ser utilizada)
+\setmainfont{Arial}
+%\setmainfont{Times New Roman}
+
+% Fontes bibliográficas
+\addbibresource{referencias.bib}
+
+% Título
+\titulo{Diferença-em-Diferenças em Políticas Educacionais} 
+% Subtítulo
+\subtitulo{Evidências do Ensino Integral sob Mudanças Composicionais} 
+% Autor (nome completo)
+\autor{Andreas Azambuja Barbisan}
+% Ano com 4 dígitos
+\data{\the\year} % \the\year imprime o ano corrente
+% Nome da instituição
+\instituicao{Insper Instituto de Ensino e Pesquisa}
+% Nome do curso
+ \curso{Ciências Econômicas}
+% Localidade da apresentação do documento
+\local{São Paulo}
+% Orientador (nome completo)
+\orientador[Orientador:]{Adriano Dutra Teixeira}
+% Coorientador (nome completo)
+\coorientador[Coorientador:]{}
+% Tipo de trabalho (TCC  / Dissertação / Tese)
+\tipotrabalho{Tipo de trabalho}
+% Palavras-chave (importante: separar por vírgulas)
+\palavraschaves{Economia da Educação, Diferença-em-diferenças, Ensino Integral}
+% Palavras-chave em inglês (importante: separar por vírgulas)
+\keywords{Economics of Education, Difference-in-differences, Full-day schooling}
+% Professores convidados (importante: separar por vírgulas)
+      \professores{Ursula Mello}
+
+% Preâmbulo
+\preambulo{Trabalho de Conclusão de Curso apresentado ao programa de Graduação em Economia como requisito parcial para a obtenção do título de Bacharel em Economia.}
+
+\input{capa_insper}
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+    \setcounter{page}{1} % Começa a contar da folha de rosto, mas sem exibir
+    \pagenumbering{arabic} % Garante que a numeração será em algarismos arábicos
+    \pagestyle{empty} % Oculta a numeração até a introdução
+
+    % Retira espaço extra obsoleto entre as frases
+    \frenchspacing
+
+    % Elementos pré-textuais
+    \pretextual
+    % Capa (obrigatório)
+    \imprimircapa
+    % Folha de rosto (obrigatório)
+    \imprimirfolhaderosto
+
+    % Ficha catalográfica (opcional)
+    \imprimirfichacatalografica
+    % Errata (opcional)
+    % \input{1-pre-textuais/opcionais/errata}
+    % Folha de aprovação (obrigatório)
+    \imprimirfolhadeaprovacao
+    % Dedicatória (opcional)
+%    \input{1-pre-textuais/opcionais/dedicatoria}
+    % Agradecimentos (opcional)
+%   \input{1-pre-textuais/opcionais/agradecimentos}
+    % Epígrafe (opcional)
+%    \input{1-pre-textuais/opcionais/epigrafe}
+    % Resumo (obrigatório)
+    \input{1-pre-textuais/resumo}
+    % Abstract - Resumo em língua estrangeira (obrigatório)
+    \input{1-pre-textuais/abstract}
+    % Lista de ilustrações (opcional)
+     \imprimirlistadeilustracoes
+    % Lista de tabelas (opcional)
+     \imprimirlistadetabelas
+    % Lista de abreviaturas e siglas (opcional)
+    % \input{1-pre-textuais/opcionais/lista-de-abreviaturas-e-siglas}
+    % Lista de símbolos (opcional)
+    % \input{1-pre-textuais/opcionais/lista-de-simbolos}
+    % Sumário (obrigatório)
+    \imprimirsumario
+
+    % Elementos textuais
+    % \textual
+    % % Capítulos do texto (incluir conforme necessidade)
+    \include{2-textuais/01-introducao}
+    \include{2-textuais/02-literatura}
+    \include{2-textuais/03-modelomicro}
+    \include{2-textuais/04-dadosemetodologia}
+    \include{2-textuais/05-resultadosediscussao}
+    \include{2-textuais/06-conclusao}
+                
+    % Elementos pós-textuais
+    \postextual
+    % Bibliografia (obrigatório)
+    \printbibliography[title=REFER\^ENCIAS]
+    % Glossário (opcional)
+    % \imprimirglossario
+    % Apêndices (opcional)
+     \begin{apendicesenv}
+         \partapendices
+         \input{3-pos-textuais/apendices/apendice-a}
+         \input{3-pos-textuais/apendices/apendice-b}
+         \input{3-pos-textuais/apendices/apendice-c}
+         \input{3-pos-textuais/apendices/apendice-d}
+         \input{3-pos-textuais/apendices/apendice-e}
+         \input{3-pos-textuais/apendices/apendice-f}
+     \end{apendicesenv}
+    % Anexos (opcional)
+ %   \begin{anexosenv}
+   %     \partanexos
+%        \input{3-pos-textuais/anexos/01-anexo-a}
+  %  \end{anexosenv}
+    % Índice remissivo (opcional)
+    % \imprimirindice
+\end{document}
