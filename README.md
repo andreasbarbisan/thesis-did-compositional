@@ -40,7 +40,6 @@ Raw data are **not included** in this repository. The analysis uses three public
 |---|---|---|
 | SARESP | Aggregate school-level proficiency by year, grade, and subject | [SP Education Open Data](https://dados.educacao.sp.gov.br/story/saresp) |
 | Enrollment microdata | Student-level administrative records from São Paulo state schools | [SP Education Open Data](https://dados.educacao.sp.gov.br/) |
-| IBGE municipal data | Municipal GDP per capita, population, and age structure | [IBGE](https://www.ibge.gov.br/estatisticas/economicas/contas-nacionais/9088-produto-interno-bruto-dos-municipios.html) |
 
 The PEI first-treatment year by school (`escolas_pei_first_treat.dta`) was constructed from SARESP school records and is available upon request.
 
